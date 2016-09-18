@@ -2,6 +2,10 @@
 
 Simple keyboard scanning for `node`
 
+```javascript
+require('keyscan').make_scanner({ out: (ch) => console.log(`Caught ${ch.parsed}`) });
+```
+
 
 
 
