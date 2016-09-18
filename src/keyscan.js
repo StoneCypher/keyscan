@@ -29,11 +29,9 @@ function make_scanner(userOptions) {
         };
 
     if (isTTY(userOptions)) {
-    	console.log('fired as a tty');
         scanner     = Object.assign({}, defaultOptions);
         scanner.tty = userOptions;
     } else {
-    	console.log('fired not a tty');
         scanner     = Object.assign({}, defaultOptions, userOptions);
     }
 
@@ -58,6 +56,8 @@ function make_scanner(userOptions) {
     }
 
     scanner.in.on('keypress', function (chunk, key) {
+
+        key.parsed = key.name || key.sequence;
 
         if (scanner.out) {
             if      (outFunc) { scanner.out(key); }

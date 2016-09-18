@@ -1,4 +1,7 @@
 
-console.log('Type ctrl+c to exit.\n\n');
+console.log('\nType ctrl+c to exit.\n-------------------\n');
 
-var keyscan = require('../dist/keyscan.js').make_scanner({ out: function(ch) { console.log('Caught ' + JSON.stringify(ch)); } });
+var echo_ch = function(ch) { console.log('Caught ' + JSON.stringify(ch.parsed)); },
+
+    keyscan = require('../dist/keyscan.js'),
+    scanner = keyscan.make_scanner({ out: echo_ch });
