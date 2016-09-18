@@ -3,7 +3,7 @@
 Simple keyboard scanning for `node`
 
 ```javascript
-require('keyscan').make_scanner({ out: (ch) => console.log(`Caught ${ch.parsed}`) });
+require('keyscan').make_scanner( (ch) => console.log('Caught ' + ch.parsed) );
 ```
 
 
@@ -14,11 +14,12 @@ require('keyscan').make_scanner({ out: (ch) => console.log(`Caught ${ch.parsed}`
 
 Yep.  And none of them are what I wanted.
 
- * One-liner node keypress handling: check.
- * No need to configure beyond saying "this is the handler": check
- * Suppress echo by default: check
- * Special keys (eg arrow keys) interpreted down to common sense strings: check.
- * `readline` which-field defect repaired: check.
+ * One-liner node keypress handling
+ * No need to configure beyond saying "this is the handler"
+ * Suppress echo by default
+ * Configurable (and removable) kill key(s)
+ * Special keys (eg arrow keys) interpreted down to common sense strings
+ * `readline` various-field defect repaired
 
 
 
@@ -256,7 +257,7 @@ Todo:
 
 * read once only
 * unicode symbolic name representations
-* prompt
+* prompt (? may not make sense, deciding)
 * echo enable
 * map keys to outputs (eg 's' echoes 'save')
 * premade digits

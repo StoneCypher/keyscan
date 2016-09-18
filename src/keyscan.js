@@ -13,7 +13,7 @@ const defined = (thing) => typeof thing !== 'undefined',
 
 
 
-function make_scanner(userOptions) {
+function make_scanner(userOptions, preConfig) {
 
     var promote = false,
         scanner,
@@ -28,11 +28,17 @@ function make_scanner(userOptions) {
             isAbort : ((key) => (key && key.ctrl && key.name == 'c'))
         };
 
+    // if they just pass in a tty, it's their input
     if (isTTY(userOptions)) {
-        scanner     = Object.assign({}, defaultOptions);
+        scanner     = Object.assign({}, defaultOptions, preConfig || {});
         scanner.tty = userOptions;
+    // otherwise if they just pass in a function, it's their output
+    } else if (isFunc(userOptions)) {
+        scanner     = Object.assign({}, defaultOptions, preConfig || {});
+        scanner.out = userOptions;
+    // otherwise treat it as a full options object
     } else {
-        scanner     = Object.assign({}, defaultOptions, userOptions);
+        scanner     = Object.assign({}, defaultOptions, preConfig || {}, userOptions);
     }
 
     if (typeof scanner.filter === 'string') {
