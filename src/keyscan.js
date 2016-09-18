@@ -57,15 +57,15 @@ function make_scanner(userOptions) {
 
     scanner.in.on('keypress', function (chunk, key) {
 
+        if (scanner.isAbort(key)) {
+            scanner.release();
+        }
+
         key.parsed = key.name || key.sequence;
 
         if (scanner.out) {
             if      (outFunc) { scanner.out(key); }
             else if (outTTY)  { scanner.out.write(`${JSON.stringify(key)}`); }
-        }
-
-        if (scanner.isAbort(key)) {
-            scanner.release();
         }
 
     });
