@@ -33,7 +33,7 @@ If you're in an `es5` environment:
 ```javascript
 console.log('Type ctrl+c to exit.\n-------------------\n');
 
-var echo_ch = function(keypress) { console.log('Caught ' + JSON.stringify(keypress.parsed)); },
+var echo_ch = function(ks) { console.log('Caught ' + JSON.stringify(ks.parsed)); },
 
     keyscan = require('../dist/keyscan.js'),
     scanner = keyscan.make_scanner({ out: echo_ch });
@@ -132,13 +132,91 @@ const keyscan = make_scanner({ out: function(ch) { console.log('Caught ' + JSON.
 
 
 
+### Result
+
+You'll see something like this:
+
+```
+$ node demo/es5_demo.js
+
+Type ctrl+c to exit.
+-------------------
+
+Caught {"sequence":"a","name":"a","ctrl":false,"meta":false,"shift":false,"parsed":"a"}
+
+
+
+
+
 # Other features
 
-* `out` as a function
-* `out` as a `tty`
-* `in` as a tty
-* `isAbort`
+The key scanner offers other features as well.
 
+
+
+
+
+## Manually releasing the key scanner
+
+If you want to release the scanning process without requiring the user to abort with `ctrl+c`, just `.release` the scanner.
+
+```javascript
+console.log('\nType three things, then this will exit.\n---------------------------------------\n');
+
+var count   = 0,
+
+    keyscan = require('../dist/keyscan.js'),
+    scanner,
+
+    echo_3x = function(ch) {
+        console.log('Caught ' + JSON.stringify(ch.parsed));
+        ++count;
+        if (count >= 3) {
+        	console.log('Three items reached.  Releasing.');
+        	scanner.release();
+        }
+    },
+
+    scanner = keyscan.make_scanner({ out: echo_3x });
+```
+
+
+
+
+
+### Result
+
+You'll see something like this:
+
+```
+$ node demo/manual_release.js
+
+Type three things, then this will exit.
+---------------------------------------
+
+Caught "1"
+Caught "2"
+Caught "3"
+Three items reached.  Releasing.
+```
+
+
+
+
+
+## Replacing the kill keys with `isAbort`
+
+If you want to keep the termination character behavior, but want it to be something other than `ctrl+c` (or multiple things,) write a function, and pass it in as `.isAbort`:
+
+```javascript
+console.log('\nType ctrl+x to exit.\n-------------------\n');
+
+var echo_ch = function(ch) { console.log('Caught ' + JSON.stringify(ch.parsed)); },
+    use_c_x = function(ch) { return (ch && (ch.ctrl) && (ch.name == 'x')); },
+
+    keyscan = require('../dist/keyscan.js'),
+    scanner = keyscan.make_scanner({ out: echo_ch, isAbort: use_c_x });
+```
 
 
 
@@ -147,7 +225,6 @@ Todo:
 
 * filter
 * read once only
-* once only
 * prompt
 * echo enable
 * map keys to outputs (eg 's' echoes 'save')
