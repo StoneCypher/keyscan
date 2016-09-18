@@ -61,7 +61,7 @@ function make_scanner(userOptions) {
 
         if (scanner.out) {
             if      (outFunc) { scanner.out(key); }
-            else if (outTTY)  { scanner.out.write(`${JSON.stringify(key)}\n`); }
+            else if (outTTY)  { scanner.out.write(`${JSON.stringify(key)}`); }
         }
 
         if (scanner.isAbort(key)) {
@@ -78,4 +78,4 @@ function make_scanner(userOptions) {
 
 
 
-module.exports = { make_scanner };
+export { make_scanner };

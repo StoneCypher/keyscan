@@ -1,10 +1,16 @@
 {
   "name": "keyscan",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Simpler keyboard scanning for Node",
-  "main": "index.js",
+  "main": "dist/keyscan.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean"      : "rm -rf ./dist",
+    "trim"       : "rm -rf ./dist/src",
+    "arrange"    : "mv ./dist/src/keyscan.js ./dist/keyscan.js",
+    "babel"      : "node ./node_modules/babel-cli/bin/babel src/keyscan.js --out-dir ./dist --presets es2015",
+    "browserify" : "",
+    "build"      : "npm run clean && npm run babel && npm run arrange && npm run trim",
+    "test"        : "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
