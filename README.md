@@ -29,24 +29,77 @@ Yep.  And none of them are what I wanted.
 
 Provide a function to `keyscan`.  That function will be called whenever a non-control keyboard input is detected, with an object describing the input.
 
-```javascript
-{
-    "parsed"   : "a",
-    "sequence" : "a",
-    "name"     : "a",
-    "ctrl"     : false,
-    "meta"     : false,
-    "shift"    : false
-}
-```
-
-This means that you will ***not*** get events when people hit, say, `shift` or `caps lock`.  This is what most applications want and need, but it's probably not right for many action video games that want to use control keys as weapon buttons.
-
 The object passed back to your handler function is a single depth flat object with six fields - the five mimicing what is exposed by the [raw mode readline interface](https://nodejs.org/api/readline.html#readline_readline_emitkeypressevents_stream_interface), plus a new field named `parsed`.
 
 Generally you should use `parsed`, which is just `(.name || .sequence)`.  In most cases `.parsed` will contain `.name`, but there are characters (such as `@`) which have no `.name`.  Checking for that and deferring to `.sequence` is a hassle, so, the `.parsed` property now reliably contains that behavior.
 
 It's worth noting that `.name` frequently translates multiple keypresses to single keypresses (which is its purpose.)  As a result, you may get keys represented in `.parsed` as strings like `'pagedown'` and `'backspace'`.
+
+## Example objects
+
+This is the up arrow:
+```javascript
+{
+  "sequence": "\u001b[A",
+  "name": "up",
+  "ctrl": false,
+  "meta": false,
+  "shift": false,
+  "code": "[A",
+  "parsed": "up"
+}
+```
+
+This is page down:
+```javascript
+{
+  "sequence": "\u001b[6~",
+  "name": "pagedown",
+  "ctrl": false,
+  "meta": false,
+  "shift": false,
+  "code": "[6~",
+  "parsed": "pagedown"
+}
+```
+
+This is capital A produced with shift (note that only `.sequence` retains case)
+```javascript
+{
+  "sequence": "A",
+  "name": "a",
+  "ctrl": false,
+  "meta": false,
+  "shift": true,
+  "parsed": "a"
+}
+```
+
+This is capital A produced with caps lock (note that `.shift` is false here, unlike above)
+```javascript
+{
+  "sequence": "A",
+  "name": "a",
+  "ctrl": false,
+  "meta": false,
+  "shift": false,
+  "parsed": "a"
+}
+```
+
+This is `ctrl+z`
+```javascript
+{
+  "sequence": "\u001a",
+  "name": "z",
+  "ctrl": true,
+  "meta": false,
+  "shift": false,
+  "parsed": "z"
+}
+```
+
+Because of the integrated approach to control keys, you will ***not*** get events when people hit, say, `shift` or `caps lock` on their own.  This is what most applications want and need, but it's not right for many action games, which may want to use control keys as weapon buttons.
 
 On `Windows` and `Linux` platforms, `meta` is called `alt`.  On `Macintosh`es, `meta` is called `option`.
 

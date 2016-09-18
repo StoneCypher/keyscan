@@ -1,6 +1,6 @@
 {
   "name": "keyscan",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Simpler keyboard scanning for Node",
   "main": "dist/keyscan.js",
   "scripts": {
