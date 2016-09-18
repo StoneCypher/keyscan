@@ -78,10 +78,4 @@ function make_scanner(userOptions) {
 
 
 
-var test = make_scanner({out: (x) => console.log(`got: ${JSON.stringify(x)}`)});
-
-
-
-
-
 module.exports = { make_scanner };
