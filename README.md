@@ -157,7 +157,25 @@ Caught home
 
 
 
-## ES5 Readable Example
+## Premades
+
+There are also some convenience pre-made filters, such as
+
+* `scanner.yn(opts)` - for yes/no - pre-configured to filter for `['y','n']`
+* `scanner.ync(opts)` - for yes/no/cancel - pre-configured to filter for `['y','n','c']`
+* `scanner.d09(opts)` - for star ratings - pre-configured to filter for digits `['0','1','2','3','4','5','6','7','8','9']`
+  * `scanner.d14(opts)` - for star ratings - like `.d09()` but only accepts 1-4
+  * `scanner.d15(opts)` - for star ratings - like `.d14()` but 1-5
+  * `scanner.d19(opts)` - for 1-9 ratings - like `.d09()` but excludes zeroes
+* `scanner.d09c(opts)` - for digits - also accepts `'c'`, for cancellation
+  * `scanner.d14c(opts)`
+  * `scanner.d15c(opts)`
+  * `scanner.d19c(opts)`
+
+
+
+
+## ES5 Full-Show Example
 
 If you'd like to see the full keypress data instead, letting you see control modes and the raw character sequence, try this instead:
 
@@ -316,5 +334,5 @@ Todo:
 * map keys to outputs (eg 's' echoes 'save')
 * premade digits
 * premade number
-* premade yes/no
-* premade yes/no/cancel
+* make yn and ync show labels aftwerwards
+* `.sync` (inherently `once`)

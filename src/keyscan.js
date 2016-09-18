@@ -94,4 +94,21 @@ function make_scanner(userOptions, preConfig) {
 
 
 
-export { make_scanner };
+const yn   = (opts) => make_scanner(opts, { filter: 'yn' }),
+      ync  = (opts) => make_scanner(opts, { filter: 'ync' }),
+
+      d14  = (opts) => make_scanner(opts, { filter: '1234' }),
+      d15  = (opts) => make_scanner(opts, { filter: '12345' }),
+      d19  = (opts) => make_scanner(opts, { filter: '123456789' }),
+      d09  = (opts) => make_scanner(opts, { filter: '0123456789' }),
+
+      d14c = (opts) => make_scanner(opts, { filter: 'c1234' }),
+      d15c = (opts) => make_scanner(opts, { filter: 'c12345' }),
+      d19c = (opts) => make_scanner(opts, { filter: 'c123456789' }),
+      d09c = (opts) => make_scanner(opts, { filter: 'c0123456789' });
+
+
+
+
+
+export { make_scanner, yn, ync, d14, d15, d19, d09, d14c, d15c, d19c, d09c };

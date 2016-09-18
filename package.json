@@ -1,6 +1,6 @@
 {
   "name": "keyscan",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Simpler keyboard scanning for Node",
   "main": "dist/keyscan.js",
   "scripts": {
@@ -27,6 +27,9 @@
     "sscanf",
     "readkey",
     "readln",
+    "yesno",
+    "prompt",
+    "yn",
     "kbhit",
     "keypress",
     "getkey",

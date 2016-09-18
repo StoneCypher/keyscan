@@ -94,4 +94,13 @@ function make_scanner(userOptions, preConfig) {
     return scanner;
 }
 
+var yn = function yn(opts) {
+    return make_scanner(opts, { filter: 'yn' });
+},
+    ync = function ync(opts) {
+    return make_scanner(opts, { filter: 'ync' });
+};
+
 exports.make_scanner = make_scanner;
+exports.yn = yn;
+exports.ync = ync;
