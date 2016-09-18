@@ -228,6 +228,7 @@ Type ctrl+c to exit.
 -------------------
 
 Caught {"sequence":"a","name":"a","ctrl":false,"meta":false,"shift":false,"parsed":"a"}
+```
 
 
 
