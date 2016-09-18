@@ -65,7 +65,7 @@ function make_scanner(userOptions) {
         }
 
         if (scanner.isAbort(key)) {
-            process.exit();
+            scanner.release();
         }
 
     });
