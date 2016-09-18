@@ -18,7 +18,30 @@ Drop dead simple keyboard scanning for node apps: ahoy.
 
 # Basic usage
 
-Code examples are the straightforward way.
+Provide a function to `keyscan`.  That function will be called whenever a non-control keyboard input is detected, with an object describing the input.
+
+This means that you will ***not*** get events when people hit, say, `shift` or `caps lock`.  This is what most applications want and need, but it's probably not right for many action video games that want to use control keys as weapon buttons.
+
+The object passed back to your handler function is a single depth flat object with six fields - the five mimicing what is exposed by the [raw mode readline interface](https://nodejs.org/api/readline.html#readline_readline_emitkeypressevents_stream_interface), plus a new field named `parsed`.
+
+Generally you should use `parsed`, which is just `(.name || .sequence)`.  In most cases `.parsed` will contain `.name`, but there are characters (such as `@`) which have no `.name`.  Checking for that and deferring to `.sequence` is a hassle, so, the `.parsed` property now reliably contains that behavior.
+
+It's worth noting that `.name` frequently translates multiple keypresses to single keypresses (which is its purpose.)  As a result, you may get keys represented in `.parsed` as strings like `'pagedown'` and `'backspace'`.
+
+```javascript
+{
+    "parsed"   : "a",
+    "sequence" : "a",
+    "name"     : "a",
+    "ctrl"     : false,
+    "meta"     : false,
+    "shift"    : false
+}
+```
+
+On `Windows` and `Linux` platforms, `meta` is called `alt`.  On `Macintosh`es, `meta` is called `option`.  So, if you hit `shift+ctrl+t`, you
+
+Code examples are often more readable.
 
 
 
@@ -172,8 +195,8 @@ var count   = 0,
         console.log('Caught ' + JSON.stringify(ch.parsed));
         ++count;
         if (count >= 3) {
-        	console.log('Three items reached.  Releasing.');
-        	scanner.release();
+            console.log('Three items reached.  Releasing.');
+            scanner.release();
         }
     },
 

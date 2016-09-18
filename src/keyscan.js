@@ -35,6 +35,10 @@ function make_scanner(userOptions) {
         scanner     = Object.assign({}, defaultOptions, userOptions);
     }
 
+    if (typeof scanner.filter === 'string') {
+        scanner.filter = scanner.filter.split('');
+    }
+
     outTTY  = isTTY(scanner.out);
     outFunc = isFunc(scanner.out);
 
@@ -59,13 +63,19 @@ function make_scanner(userOptions) {
 
         if (scanner.isAbort(key)) {
             scanner.release();
-        }
+        } else {
 
-        key.parsed = key.name || key.sequence;
+            key.parsed = key.name || key.sequence;
 
-        if (scanner.out) {
-            if      (outFunc) { scanner.out(key); }
-            else if (outTTY)  { scanner.out.write(`${JSON.stringify(key)}`); }
+            if ( (!(scanner.filter)) || (scanner.filter.includes(key.parsed)) ) {
+
+                if (scanner.out) {
+                    if      (outFunc) { scanner.out(key); }
+                    else if (outTTY)  { scanner.out.write(`${JSON.stringify(key)}`); }
+                }
+
+            }
+
         }
 
     });
