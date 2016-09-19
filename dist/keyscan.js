@@ -99,8 +99,48 @@ var yn = function yn(opts) {
 },
     ync = function ync(opts) {
     return make_scanner(opts, { filter: 'ync' });
+},
+    d14 = function d14(opts) {
+    return make_scanner(opts, { filter: '1234' });
+},
+    d15 = function d15(opts) {
+    return make_scanner(opts, { filter: '12345' });
+},
+    d19 = function d19(opts) {
+    return make_scanner(opts, { filter: '123456789' });
+},
+    d09 = function d09(opts) {
+    return make_scanner(opts, { filter: '0123456789' });
+},
+    d14c = function d14c(opts) {
+    return make_scanner(opts, { filter: 'c1234' });
+},
+    d15c = function d15c(opts) {
+    return make_scanner(opts, { filter: 'c12345' });
+},
+    d19c = function d19c(opts) {
+    return make_scanner(opts, { filter: 'c123456789' });
+},
+    d09c = function d09c(opts) {
+    return make_scanner(opts, { filter: 'c0123456789' });
+},
+    abc = function abc(opts) {
+    return make_scanner(opts, { filter: 'abc' });
+},
+    abcd = function abcd(opts) {
+    return make_scanner(opts, { filter: 'abcd' });
 };
 
 exports.make_scanner = make_scanner;
 exports.yn = yn;
 exports.ync = ync;
+exports.d14 = d14;
+exports.d15 = d15;
+exports.d19 = d19;
+exports.d09 = d09;
+exports.d14c = d14c;
+exports.d15c = d15c;
+exports.d19c = d19c;
+exports.d09c = d09c;
+exports.abc = abc;
+exports.abcd = abcd;

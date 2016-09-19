@@ -105,10 +105,13 @@ const yn   = (opts) => make_scanner(opts, { filter: 'yn' }),
       d14c = (opts) => make_scanner(opts, { filter: 'c1234' }),
       d15c = (opts) => make_scanner(opts, { filter: 'c12345' }),
       d19c = (opts) => make_scanner(opts, { filter: 'c123456789' }),
-      d09c = (opts) => make_scanner(opts, { filter: 'c0123456789' });
+      d09c = (opts) => make_scanner(opts, { filter: 'c0123456789' }),
+
+      abc  = (opts) => make_scanner(opts, { filter: 'abc' }),
+      abcd = (opts) => make_scanner(opts, { filter: 'abcd' });
 
 
 
 
 
-export { make_scanner, yn, ync, d14, d15, d19, d09, d14c, d15c, d19c, d09c };
+export { make_scanner, yn, ync, d14, d15, d19, d09, d14c, d15c, d19c, d09c, abc, abcd };

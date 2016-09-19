@@ -162,7 +162,9 @@ Caught home
 There are also some convenience pre-made filters, such as
 
 * `scanner.yn(opts)` - for yes/no - pre-configured to filter for `['y','n']`
-* `scanner.ync(opts)` - for yes/no/cancel - pre-configured to filter for `['y','n','c']`
+  * `scanner.ync(opts)` - for yes/no/cancel - pre-configured to filter for `['y','n','c']`
+* `scanner.abc(opts)` - for abc multiple choice - pre-configured to filter for `['a','b','c']`
+  * `scanner.abcd(opts)` - for abcd multiple choice - pre-configured to filter for `['a','b','c','d']`
 * `scanner.d09(opts)` - for star ratings - pre-configured to filter for digits `['0','1','2','3','4','5','6','7','8','9']`
   * `scanner.d14(opts)` - for star ratings - like `.d09()` but only accepts 1-4
   * `scanner.d15(opts)` - for star ratings - like `.d14()` but 1-5
@@ -330,9 +332,7 @@ Todo:
 * read once only
 * unicode symbolic name representations
 * prompt (? may not make sense, deciding)
-* echo enable
+* echo enable (wants unicode)
 * map keys to outputs (eg 's' echoes 'save')
-* premade digits
-* premade number
 * make yn and ync show labels aftwerwards
 * `.sync` (inherently `once`)
